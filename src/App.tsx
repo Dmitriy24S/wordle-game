@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Guess from './components/Guess'
 import Keyboard from './components/Keyboard'
+import words from './data/words.json'
 
 function App() {
   const word = 'ghost'
@@ -35,11 +36,17 @@ function App() {
   const handleEnter = () => {
     console.log('HANDLE ENTER guess length', guess.length);
     if (guess.length < 5) return
-    setGuessWordList((prev) => prev.map((word, index) => index === guessAttemptNumber ? guess : word
-    ))
-    setGuessAttemptNumber((prev) => prev + 1)
-    setGuess('')
-    // TODO: calc GameResult
+    // if guess is valid word
+    if (words.includes(guess)) {
+      setGuessWordList((prev) => prev.map((word, index) => index === guessAttemptNumber ? guess : word
+      ))
+      setGuessAttemptNumber((prev) => prev + 1)
+      setGuess('')
+      // calcGameResult() // ! ?
+    } else {
+      alert('Not in word list. Try another word')
+      // TODO: notification (snackbar/toast)
+    }
   }
 
   const handleBackspace = () => {

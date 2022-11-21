@@ -177,3 +177,34 @@ button:focus-visible {
 .keyboard-space {
   flex: 0.5;
 }
+
+/* Game Over / Play again */
+.play-again-container {
+  margin-top: 1.5rem;
+  font-size: 1.3rem;
+}
+.win-text {
+  color: rgb(28, 212, 28);
+  /* font-size: 1.3rem; */
+}
+.lost-text {
+  /* color: red; */
+  color: #d10707;
+  /* font-size: 1.3rem; */
+}
+.play-again-title-word {
+  /* color: rgb(28, 212, 28); */
+  color: rgb(41 197 41);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+.play-again-btn {
+  background-color: #fff;
+  color: #1e1e1e;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.play-again-btn:hover {
+  color: #636262;
+}

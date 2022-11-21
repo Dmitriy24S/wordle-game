@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import GameOver from './components/GameOver'
 import Guess from './components/Guess'
 import Keyboard from './components/Keyboard'
 import words from './data/words.json'
@@ -8,6 +9,32 @@ function App() {
   const [guess, setGuess] = useState<string>('')
   const [guessWordList, setGuessWordList] = useState<string[]>((new Array(6).fill('')))
   const [guessAttemptNumber, setGuessAttemptNumber] = useState(0)
+  const [gameResult, setGameResult] = useState<string>('')
+
+  // Calculate game result (win/lost)
+  useEffect(() => {
+    const calcGameResult = () => {
+      console.log('CALC GAME RESULT', 'guessAttemptNumber', guessAttemptNumber, 'guessWordList', guessWordList);
+      // CALC GAME RESULT guessAttemptNumber 1 guessWordList (6) ['ghost', '', '', '', '', '']
+      if (guessAttemptNumber === 6) {
+        setGameResult('lost')
+        console.log('GAME LOST');
+      }
+      if (guessWordList[guessAttemptNumber - 1] === word) {
+        // after Enter increment guessAttemptNumber and after 1st try goes from 0 to 1 (2nd attempt is active), need (-1) index to access the most recently submited value
+        setGameResult('win')
+        console.log('GAME WON');
+      }
+    }
+    calcGameResult()
+  }, [guessAttemptNumber])
+
+  const resetGame = () => {
+    setGuess('')
+    setGuessWordList((new Array(6).fill('')))
+    setGuessAttemptNumber(0)
+    setGameResult('')
+  }
 
   // Click/tap on screen keyboard:
   const handleKeyClick = (e: React.MouseEvent) => {
@@ -134,6 +161,7 @@ function App() {
           />
         ))}
       </div>
+      {gameResult && <GameOver resetGame={resetGame} word={word} gameResult={gameResult} />}
       <Keyboard
         handleKeyClick={handleKeyClick}
         letterStatusKeyboard={letterStatusKeyboard}

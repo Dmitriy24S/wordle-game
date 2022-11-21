@@ -33,8 +33,9 @@ function App() {
     }
   }
 
-  const handleEnter = () => {
+  const handleEnter = (e?: KeyboardEvent) => {
     console.log('HANDLE ENTER guess length', guess.length);
+    e?.preventDefault(); // fixes bug? if focus set on letter -> press enter to submit word -> next row 1st letter auto apply focused letter (enter submits 1st word + 'clicks' focused btn) = now press enter => submit word without affecting next row / if not submitting -> press enter => enters focused letter into row
     if (guess.length < 5) return
     // if guess is valid word
     if (words.includes(guess)) {
@@ -75,7 +76,7 @@ function App() {
       }
       // if enter -> submit word as guess
       if (e.key === 'Enter' && guess.length === 5) {
-        handleEnter()
+        handleEnter(e)
       }
       // backspace -> remove last letter from current guess word
       if (e.key === 'Backspace') {

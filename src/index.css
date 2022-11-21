@@ -61,6 +61,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
+  /* background-color: #3a3a3c; */
   color: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -141,6 +142,7 @@ button:focus-visible {
 }
 .wrong {
   background-color: #3a3a3c;
+  /* background-color: #1a1a1a; */
   border: 2px solid transparent;
 }
 

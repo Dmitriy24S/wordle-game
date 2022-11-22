@@ -38,25 +38,28 @@ function App() {
 
   // Click/tap on screen keyboard:
   const handleKeyClick = (e: React.MouseEvent) => {
-    // const handleKeyClick = (e: Event) => {
-    console.log('guess', guess);
-    // console.log(e);
-    // console.log(e.target); // <button class="keyboard-key ">u</button>
-    // console.log(e.target.textContent);
-    const target = e.currentTarget as HTMLButtonElement;
-    // const target = e.target as HTMLButtonElement;
-    if (guess.length < 5) {
-      setGuess((prev) => prev + target.textContent)
-      return
-    }
-    if (target.textContent === 'Enter') {
-      handleEnter()
-      return
-    }
-    if (target.ariaLabel === 'backspace') {
-      console.log('backspace', 111111);
-      handleBackspace()
-      return
+    // if game is not over -> allow key click
+    if (!gameResult) {
+      // const handleKeyClick = (e: Event) => {
+      console.log('guess', guess);
+      // console.log(e);
+      // console.log(e.target); // <button class="keyboard-key ">u</button>
+      // console.log(e.target.textContent);
+      const target = e.currentTarget as HTMLButtonElement;
+      // const target = e.target as HTMLButtonElement;
+      if (guess.length < 5) {
+        setGuess((prev) => prev + target.textContent)
+        return
+      }
+      if (target.textContent === 'Enter') {
+        handleEnter()
+        return
+      }
+      if (target.ariaLabel === 'backspace') {
+        console.log('backspace', 111111);
+        handleBackspace()
+        return
+      }
     }
   }
 
@@ -110,12 +113,15 @@ function App() {
         handleBackspace()
       }
     }
-    document.body.addEventListener('keydown', keyPress)
+    // if game is not over -> allow key press
+    if (!gameResult) {
+      document.body.addEventListener('keydown', keyPress)
+    }
     // cleanup
     return () => {
       document.body.removeEventListener('keydown', keyPress)
     }
-  }, [guess, guessWordList, guessAttemptNumber])
+  }, [guess, guessWordList, guessAttemptNumber, gameResult])
 
   // Key/letter status color:
   const allGuesses = guessWordList.slice(0, guessAttemptNumber).join('').split('')

@@ -1,14 +1,14 @@
 import React from 'react'
 
 interface Props {
-    word: string
     guess: string
     guessWordList: string[]
     row: number
     guessAttemptNumber: number
+    letterStatusGameBoard: (key: string, guessLetterIndex: number) => void
 }
 
-const Guess = ({ word, guess, guessWordList, row, guessAttemptNumber }: Props) => {
+const Guess = ({ guess, guessWordList, row, guessAttemptNumber, letterStatusGameBoard }: Props) => {
     // console.log('guess', guess);
     // console.log('guessWordList', guessWordList);
     // guessWordList (6) ['', '', '', '', '', '']
@@ -23,10 +23,12 @@ const Guess = ({ word, guess, guessWordList, row, guessAttemptNumber }: Props) =
         <div className='guess-row'>
             {[...Array(5)].map((_item, index) => {
                 // console.log('guessWordList[row]', guessWordList[row]); // empty
-                const letterStatus = guessWordList[row][index] === word[index] ? 'correct' : word.includes(guessWordList[row][index]) ? 'wrong-order' : 'wrong'
+                // const letterStatus = guessWordList[row][index] === word[index] ? 'correct' : word.includes(guessWordList[row][index]) ? 'wrong-order' : 'wrong'
+                const letterStatus = letterStatusGameBoard(guessWordList[row][index], index)
 
                 return (
                     <div className={`guess-square ${letterStatus}`} key={index}>
+                        {/* show active typing guess text / show previous submitted text: */}
                         {guessAttemptNumber === row ? guess[index] : guessWordList[row][index]}
                     </div>
                 )

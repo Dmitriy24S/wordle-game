@@ -140,6 +140,12 @@ function App() {
   console.log('exactGuesses', exactGuesses);
   // exactGuesses (5) ['g', 'h', 'o', 's', 't']
 
+  const letterStatusGameBoard = (letter: string, guessLetterIndex: number) => {
+    return exactGuesses.includes(letter) && letter === word[guessLetterIndex] ? 'correct'
+      : inexactGuesses.includes(letter) && letter !== word[guessLetterIndex] ? 'wrong-order'
+        : allGuesses.includes(letter) ? 'wrong' : ''
+  }
+
   const letterStatusKeyboard = (letter: string) => {
     return exactGuesses.includes(letter) ? 'correct'
       : inexactGuesses.includes(letter) ? 'wrong-order'
@@ -152,12 +158,12 @@ function App() {
       <div className="game">
         {[...Array(6)].map((_item, index) => (
           <Guess
-            word={word}
             guess={guess}
             key={index}
             guessWordList={guessWordList}
             row={index}
             guessAttemptNumber={guessAttemptNumber}
+            letterStatusGameBoard={letterStatusGameBoard}
           />
         ))}
       </div>

@@ -68,19 +68,22 @@ function App() {
       // console.log(e);
       // console.log(e.target); // <button class="keyboard-key ">u</button>
       // console.log(e.target.textContent);
-      const target = e.currentTarget as HTMLButtonElement;
       // const target = e.target as HTMLButtonElement;
-      if (guess.length < 5) {
-        setGuess((prev) => prev + target.textContent)
-        return
-      }
+      const target = e.currentTarget as HTMLButtonElement;
+      // Enter key click:
       if (target.textContent === 'Enter') {
         handleEnter()
         return
       }
+      // Backspace  key click:
       if (target.ariaLabel === 'backspace') {
         console.log('backspace', 111111);
         handleBackspace()
+        return
+      }
+      // Add letters to make guess word:
+      if (guess.length < 5) {
+        setGuess((prev) => prev + target.textContent)
         return
       }
     }

@@ -9,6 +9,7 @@
   left: 0;
   right: 0;
   margin: 0 auto;
+  pointer-events: none;
 }
 
 .toast {
@@ -21,6 +22,8 @@
   border-radius: 5px;
   transition: 0.2s;
   animation: fadeIn 0.5s;
+  overflow: hidden;
+  position: relative;
 }
 
 @keyframes fadeIn {
@@ -33,6 +36,7 @@
     opacity: 1;
   }
 }
+
 /* @keyframes fadeOut {
   from {
     bottom: 30px;
@@ -43,3 +47,15 @@
     opacity: 0;
   }
 } */
+
+.progress {
+  position: absolute;
+  content: '';
+  background-color: white;
+  bottom: 0;
+  height: 2px;
+  left: 0;
+  right: 0;
+  width: calc(100% * var(--progress, 0));
+  transition: width var(--duration, 1s) linear;
+}

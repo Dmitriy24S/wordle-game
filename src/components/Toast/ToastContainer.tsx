@@ -88,7 +88,9 @@ const ToastContainer: React.ForwardRefRenderFunction<Handle, Props> = (props, fo
 
     return (
         <div className={styles.container}>
-            {toasts.map((item, index) => <Toast key={index} id={item.id} message={item.message} removeToast={removeToast} />)}
+            {toasts.map((item) => (
+                <Toast key={item.id} {...item} removeToast={removeToast} />
+            ))}
         </div>
     )
 }

@@ -157,7 +157,8 @@ function App() {
     return () => {
       document.body.removeEventListener('keydown', keyPress)
     }
-  }, [guess, guessWordList, guessAttemptNumber, gameResult])
+    // }, [guess, guessWordList, guessAttemptNumber, gameResult])
+  }, [guess, gameResult])
 
   // Key/letter status color:
   const allGuesses = guessWordList.slice(0, guessAttemptNumber).join('').split('')

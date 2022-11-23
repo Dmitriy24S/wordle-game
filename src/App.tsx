@@ -9,11 +9,23 @@ type ToastRef = React.ElementRef<typeof ToastContainer>;
 
 
 function App() {
-  const word = 'ghost'
+  // const word = 'ghost'
+  const [word, setWord] = useState('')
   const [guess, setGuess] = useState<string>('')
   const [guessWordList, setGuessWordList] = useState<string[]>((new Array(6).fill('')))
   const [guessAttemptNumber, setGuessAttemptNumber] = useState(0)
   const [gameResult, setGameResult] = useState<string>('')
+
+  function setRandomWord() {
+    const randomNumber = Math.floor(Math.random() * words.length)
+    console.log('rndm number', randomNumber, 'word:', words[randomNumber]);
+    setWord(words[randomNumber])
+  }
+  useEffect(() => {
+    setRandomWord()
+  }, [])
+
+
 
   // Toast / Snackbar notification message
   const toastRef = useRef<ToastRef>(null);
@@ -57,6 +69,9 @@ function App() {
     setGuessWordList((new Array(6).fill('')))
     setGuessAttemptNumber(0)
     setGameResult('')
+    setRandomWord()
+    console.log('GAME RESET');
+
   }
 
   // Click/tap on screen keyboard:

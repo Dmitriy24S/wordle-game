@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import GameOver from './components/GameOver'
 import Guess from './components/Guess'
 import Keyboard from './components/Keyboard'
+import ToastContainer from './components/Toast/ToastContainer'
 import words from './data/words.json'
+
+type ToastRef = React.ElementRef<typeof ToastContainer>;
+
 
 function App() {
   const word = 'ghost'
@@ -10,6 +14,25 @@ function App() {
   const [guessWordList, setGuessWordList] = useState<string[]>((new Array(6).fill('')))
   const [guessAttemptNumber, setGuessAttemptNumber] = useState(0)
   const [gameResult, setGameResult] = useState<string>('')
+
+  // Toast / Snackbar notification message
+  const toastRef = useRef<ToastRef>(null);
+  // const toastRef = useRef<any>();
+  // console.log('toastRef', toastRef);
+  // toastRef
+  // {current: {…}}
+  // current:
+  // addToast: ƒ addToast(toast)
+  // length: 1
+  // name: "addToast"
+  function addToast(msg: string) {
+    if (toastRef.current) {
+      toastRef.current.addToast({ message: msg, duration: 3000 })
+      // no id -> id give in ToastContainer : interface Toast extends ToastValue ?
+      // snackbarRef.current.show();
+    }
+  }
+
 
   // Calculate game result (win/lost)
   useEffect(() => {
@@ -66,17 +89,27 @@ function App() {
   const handleEnter = (e?: KeyboardEvent) => {
     console.log('HANDLE ENTER guess length', guess.length);
     e?.preventDefault(); // fixes bug? if focus set on letter -> press enter to submit word -> next row 1st letter auto apply focused letter (enter submits 1st word + 'clicks' focused btn) = now press enter => submit word without affecting next row / if not submitting -> press enter => enters focused letter into row
-    if (guess.length < 5) return
-    // if guess is valid word
-    if (words.includes(guess)) {
-      setGuessWordList((prev) => prev.map((word, index) => index === guessAttemptNumber ? guess : word
-      ))
-      setGuessAttemptNumber((prev) => prev + 1)
-      setGuess('')
-      // calcGameResult() // ! ?
+
+    // not full word:
+    if (guess.length < 5) {
+      console.log('not full word?');
+      addToast('Fill out the word')
+      // return
+      // full word:
     } else {
-      alert('Not in word list. Try another word')
-      // TODO: notification (snackbar/toast)
+      // guess is valid word
+      if (words.includes(guess)) {
+        setGuessWordList((prev) => prev.map((word, index) => index === guessAttemptNumber ? guess : word
+        ))
+        setGuessAttemptNumber((prev) => prev + 1)
+        setGuess('')
+        // calcGameResult() // ! ?
+      } else {
+        // not valid word:
+        // alert('Not in word list. Try another word')
+        // TODO: notification (snackbar/toast)
+        addToast('Not in word list. Try another word')
+      }
     }
   }
 
@@ -98,14 +131,14 @@ function App() {
   useEffect(() => {
     const keyPress = (e: KeyboardEvent) => {
       console.log('keyPress e', e);
-      // letter press
+      // letter press -> make guess word
       if (e.key.match(/^[A-z]$/) && guess.length < 5) {
         // console.log('e.key', e.key);
         setGuess((prev) => prev + e.key.toLowerCase())
         // console.log('guess.length', guess.length);
       }
       // if enter -> submit word as guess
-      if (e.key === 'Enter' && guess.length === 5) {
+      if (e.key === 'Enter') {
         handleEnter(e)
       }
       // backspace -> remove last letter from current guess word
@@ -178,6 +211,7 @@ function App() {
         handleKeyClick={handleKeyClick}
         letterStatusKeyboard={letterStatusKeyboard}
       />
+      <ToastContainer ref={toastRef} />
     </div>
   )
 }

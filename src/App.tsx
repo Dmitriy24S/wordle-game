@@ -16,6 +16,7 @@ function App() {
   const [guessWordList, setGuessWordList] = useState<string[]>((new Array(6).fill('')))
   const [guessAttemptNumber, setGuessAttemptNumber] = useState(0)
   const [gameResult, setGameResult] = useState<string>('')
+  const [isAnimationActive, setIsAnimationActive] = useState(false)
 
   // Initialize random word to guess
   function setRandomWord() {
@@ -77,7 +78,7 @@ function App() {
   // Click/tap on screen keyboard:
   const handleKeyClick = (e: React.MouseEvent) => {
     // if game is not over -> allow key click
-    if (!gameResult) {
+    if (!gameResult && !isAnimationActive) {
       // const handleKeyClick = (e: Event) => {
       console.log('guess', guess);
       // console.log(e);
@@ -121,11 +122,18 @@ function App() {
         ))
         setGuessAttemptNumber((prev) => prev + 1)
         setGuess('')
-        // calcGameResult() // ! ?
+        // calcGameResult() // ! ? moved to separate useEffect
+        // valid word -> starts guessed word flip letter animation: 500ms flip animation each letter(5*500) = 2500ms
+        // (animation state helps preventing typing/clicking for next guess ahead of time)
+        setIsAnimationActive(true)
+        // after 2500ms animation for guess is done -> set active animation state to false
+        setTimeout(() => {
+          setIsAnimationActive(false)
+        }, 2500);
       } else {
         // not valid word:
         // alert('Not in word list. Try another word')
-        // TODO: notification (snackbar/toast)
+        // TODO: notification (snackbar/toast) - done
         addToast('Not in word list. Try another word')
       }
     }
@@ -165,7 +173,7 @@ function App() {
       }
     }
     // if game is not over -> allow key press
-    if (!gameResult) {
+    if (!gameResult && !isAnimationActive) {
       document.body.addEventListener('keydown', keyPress)
     }
     // cleanup
@@ -173,7 +181,7 @@ function App() {
       document.body.removeEventListener('keydown', keyPress)
     }
     // }, [guess, guessWordList, guessAttemptNumber, gameResult])
-  }, [guess, gameResult])
+  }, [guess, gameResult, isAnimationActive])
 
   // Key/letter status color:
   const allGuesses = guessWordList.slice(0, guessAttemptNumber).join('').split('')

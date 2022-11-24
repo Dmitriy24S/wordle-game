@@ -229,7 +229,6 @@ function App() {
       <Keyboard
         handleKeyClick={handleKeyClick}
         letterStatusKeyboard={letterStatusKeyboard}
-        guessWordList={guessWordList}
         guessAttemptNumber={guessAttemptNumber}
       />
       <ToastContainer ref={toastRef} />

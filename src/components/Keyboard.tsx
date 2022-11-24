@@ -9,11 +9,10 @@ const QWERTY_KEYS = [
 interface Props {
     handleKeyClick: (e: React.MouseEvent) => void
     letterStatusKeyboard: (key: string) => string
-    guessWordList: string[]
     guessAttemptNumber: number
 }
 
-const Keyboard = ({ handleKeyClick, letterStatusKeyboard, guessWordList, guessAttemptNumber }: Props) => {
+const Keyboard = ({ handleKeyClick, letterStatusKeyboard, guessAttemptNumber }: Props) => {
     return (
         <div className='keyboard'>
             {QWERTY_KEYS.map((row, index) => {
@@ -39,7 +38,7 @@ const Keyboard = ({ handleKeyClick, letterStatusKeyboard, guessWordList, guessAt
                                     return () => {
                                         clearTimeout(timeoutId)
                                     }
-                                }, [guessWordList, guessAttemptNumber])
+                                }, [guessAttemptNumber])
 
                                 return (
                                     <button className={`keyboard-key ${keyStatus}`} key={key} onClick={handleKeyClick}>
@@ -72,7 +71,7 @@ const Keyboard = ({ handleKeyClick, letterStatusKeyboard, guessWordList, guessAt
                                     return () => {
                                         clearTimeout(timeoutId)
                                     }
-                                }, [guessWordList, guessAttemptNumber])
+                                }, [guessAttemptNumber])
 
                                 return (
                                     <button className={`keyboard-key ${keyStatus}`} key={key} onClick={handleKeyClick}>
@@ -107,7 +106,7 @@ const Keyboard = ({ handleKeyClick, letterStatusKeyboard, guessWordList, guessAt
                                     return () => {
                                         clearTimeout(timeoutId)
                                     }
-                                }, [guessWordList, guessAttemptNumber])
+                                }, [guessAttemptNumber])
 
                                 return (
                                     <button className={`keyboard-key ${keyStatus}`} key={key} onClick={handleKeyClick}>

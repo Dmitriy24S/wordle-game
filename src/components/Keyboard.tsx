@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const QWERTY_KEYS = [
     'qwertyuiop',
@@ -8,10 +8,12 @@ const QWERTY_KEYS = [
 
 interface Props {
     handleKeyClick: (e: React.MouseEvent) => void
-    letterStatusKeyboard: (key: string) => void
+    letterStatusKeyboard: (key: string) => string
+    guessWordList: string[]
+    guessAttemptNumber: number
 }
 
-const Keyboard = ({ handleKeyClick, letterStatusKeyboard }: Props) => {
+const Keyboard = ({ handleKeyClick, letterStatusKeyboard, guessWordList, guessAttemptNumber }: Props) => {
     return (
         <div className='keyboard'>
             {QWERTY_KEYS.map((row, index) => {
@@ -20,9 +22,27 @@ const Keyboard = ({ handleKeyClick, letterStatusKeyboard }: Props) => {
                     return (
                         <div className='keyboard-row' key={row}>
                             {row.split('').map((key) => {
-                                const status = letterStatusKeyboard(key)
+                                // const status = letterStatusKeyboard(key)
+                                const [keyStatus, setSetKeyStatus] = useState<string>()
+                                // After submit word: change color of each key, wait for staggered letters to flip (delay 500ms * index 5 letters) = 2500ms?
+                                useEffect(() => {
+                                    let timeoutId: number
+                                    // if (guessWordList.length === 0) {
+                                    if (guessAttemptNumber === 0) {
+                                        // update keys without delay if RESET game
+                                        setSetKeyStatus(letterStatusKeyboard(key))
+                                    } else {
+                                        timeoutId = setTimeout(() => {
+                                            setSetKeyStatus(letterStatusKeyboard(key))
+                                        }, 2500)
+                                    }
+                                    return () => {
+                                        clearTimeout(timeoutId)
+                                    }
+                                }, [guessWordList, guessAttemptNumber])
+
                                 return (
-                                    <button className={`keyboard-key ${status}`} key={key} onClick={handleKeyClick}>
+                                    <button className={`keyboard-key ${keyStatus}`} key={key} onClick={handleKeyClick}>
                                         {key}
                                     </button>
                                 )
@@ -36,9 +56,26 @@ const Keyboard = ({ handleKeyClick, letterStatusKeyboard }: Props) => {
                         <div className='keyboard-row' key={row}>
                             <div className="keyboard-space"></div>
                             {row.split('').map((key) => {
-                                const status = letterStatusKeyboard(key)
+                                // const status = letterStatusKeyboard(key)
+                                const [keyStatus, setSetKeyStatus] = useState<string>()
+                                // After submit word: change color of each key, wait for staggered letters to flip (delay 500ms * index 5 letters) = 2500ms?
+                                useEffect(() => {
+                                    let timeoutId: number
+                                    if (guessAttemptNumber === 0) {
+                                        // update keys without delay if RESET game
+                                        setSetKeyStatus(letterStatusKeyboard(key))
+                                    } else {
+                                        timeoutId = setTimeout(() => {
+                                            setSetKeyStatus(letterStatusKeyboard(key))
+                                        }, 2500)
+                                    }
+                                    return () => {
+                                        clearTimeout(timeoutId)
+                                    }
+                                }, [guessWordList, guessAttemptNumber])
+
                                 return (
-                                    <button className={`keyboard-key ${status}`} key={key} onClick={handleKeyClick}>
+                                    <button className={`keyboard-key ${keyStatus}`} key={key} onClick={handleKeyClick}>
                                         {key}
                                     </button>
                                 )
@@ -54,9 +91,26 @@ const Keyboard = ({ handleKeyClick, letterStatusKeyboard }: Props) => {
                             <button className='keyboard-key enter-key' onClick={handleKeyClick}>
                                 Enter</button>
                             {row.split('').map((key) => {
-                                const status = letterStatusKeyboard(key)
+                                // const status = letterStatusKeyboard(key)
+                                const [keyStatus, setSetKeyStatus] = useState<string>()
+                                // After submit word: change color of each key, wait for staggered letters to flip (delay 500ms * index 5 letters) = 2500ms?
+                                useEffect(() => {
+                                    let timeoutId: number
+                                    if (guessAttemptNumber === 0) {
+                                        // update keys without delay if RESET game
+                                        setSetKeyStatus(letterStatusKeyboard(key))
+                                    } else {
+                                        timeoutId = setTimeout(() => {
+                                            setSetKeyStatus(letterStatusKeyboard(key))
+                                        }, 2500)
+                                    }
+                                    return () => {
+                                        clearTimeout(timeoutId)
+                                    }
+                                }, [guessWordList, guessAttemptNumber])
+
                                 return (
-                                    <button className={`keyboard-key ${status}`} key={key} onClick={handleKeyClick}>
+                                    <button className={`keyboard-key ${keyStatus}`} key={key} onClick={handleKeyClick}>
                                         {key}
                                     </button>
                                 )

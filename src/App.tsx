@@ -10,22 +10,23 @@ type ToastRef = React.ElementRef<typeof ToastContainer>;
 
 function App() {
   // const word = 'ghost'
+  // const word = 'speed'
   const [word, setWord] = useState('')
   const [guess, setGuess] = useState<string>('')
   const [guessWordList, setGuessWordList] = useState<string[]>((new Array(6).fill('')))
   const [guessAttemptNumber, setGuessAttemptNumber] = useState(0)
   const [gameResult, setGameResult] = useState<string>('')
 
+  // Initialize random word to guess
   function setRandomWord() {
     const randomNumber = Math.floor(Math.random() * words.length)
     console.log('rndm number', randomNumber, 'word:', words[randomNumber]);
     setWord(words[randomNumber])
   }
+
   useEffect(() => {
     setRandomWord()
   }, [])
-
-
 
   // Toast / Snackbar notification message
   const toastRef = useRef<ToastRef>(null);
@@ -71,7 +72,6 @@ function App() {
     setGameResult('')
     setRandomWord()
     console.log('GAME RESET');
-
   }
 
   // Click/tap on screen keyboard:
@@ -199,9 +199,9 @@ function App() {
   // exactGuesses (5) ['g', 'h', 'o', 's', 't']
 
   const letterStatusGameBoard = (letter: string, guessLetterIndex: number) => {
-    return exactGuesses.includes(letter) && letter === word[guessLetterIndex] ? 'correct'
-      : inexactGuesses.includes(letter) && letter !== word[guessLetterIndex] ? 'wrong-order'
-        : allGuesses.includes(letter) ? 'wrong' : ''
+    return exactGuesses.includes(letter) && letter === word[guessLetterIndex] ? 'correct flip'
+      : inexactGuesses.includes(letter) && letter !== word[guessLetterIndex] ? 'wrong-order flip'
+        : allGuesses.includes(letter) ? 'wrong flip' : ''
   }
 
   const letterStatusKeyboard = (letter: string) => {
@@ -229,6 +229,8 @@ function App() {
       <Keyboard
         handleKeyClick={handleKeyClick}
         letterStatusKeyboard={letterStatusKeyboard}
+        guessWordList={guessWordList}
+        guessAttemptNumber={guessAttemptNumber}
       />
       <ToastContainer ref={toastRef} />
     </div>

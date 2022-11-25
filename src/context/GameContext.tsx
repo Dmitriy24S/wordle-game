@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react'
-import words from '../data/words.json'
+import words from '../data/words2.json'
 
 interface GameContextType {
     word: string

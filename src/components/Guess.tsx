@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from 'react'
+import { AddToast } from '../App'
+import { useGameContext } from '../context/GameContext'
 
+// interface Props {
+//     guess: string
+//     guessWordList: string[]
+//     row: number
+//     guessAttemptNumber: number
+//     letterStatusGameBoard: (key: string, guessLetterIndex: number) => string
+// }
 interface Props {
-    guess: string
-    guessWordList: string[]
     row: number
-    guessAttemptNumber: number
     letterStatusGameBoard: (key: string, guessLetterIndex: number) => string
+    // addToast: (msg: string) => void
 }
 
-const Guess = ({ guess, guessWordList, row, guessAttemptNumber, letterStatusGameBoard }: Props) => {
+const Guess = ({ row, letterStatusGameBoard }: Props) => {
+    // row === {[...Array(6)].map index (0?)
+    const { guess, guessWordList, guessAttemptNumber } = useGameContext()
+
     // console.log('guess', guess);
     // console.log('guessWordList', guessWordList);
     // guessWordList (6) ['', '', '', '', '', '']

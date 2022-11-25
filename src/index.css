@@ -146,10 +146,10 @@ button:focus-visible {
   border: 2px solid transparent;
 }
 
+/* Flip letter tile */
 .flip {
   animation: 0.5s linear flip;
 }
-
 @keyframes flip {
   0% {
     transform: rotateX(0deg);
@@ -159,6 +159,35 @@ button:focus-visible {
   }
   100% {
     transform: rotateX(0deg);
+  }
+}
+
+/* Shake guess row on invalid input */
+.shake {
+  /* animation: 0.5s linear shake; */
+  animation: 0.2s linear shake;
+}
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(10px);
+  }
+  30% {
+    transform: translateX(0);
+  }
+  45% {
+    transform: translateX(-10px);
+  }
+  65% {
+    transform: translateX(0);
+  }
+  85% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: rotateX(0);
   }
 }
 

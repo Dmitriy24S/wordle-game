@@ -16,6 +16,7 @@ interface GameContextType {
     handleBackspace: () => void
     resetGame: () => void
     setRandomWord: () => void
+    invalidGuess: boolean
 }
 
 interface Props {
@@ -36,6 +37,7 @@ export const GameContextProvider = ({ children }: Props) => {
     const [guessAttemptNumber, setGuessAttemptNumber] = useState(0)
     const [gameResult, setGameResult] = useState<string>('')
     const [isAnimationActive, setIsAnimationActive] = useState(false)
+    const [invalidGuess, setInvalidGuess] = useState(false)
 
     // Click/tap on screen keyboard:
     const handleKeyClick = (addToast: (msg: string) => void, e: React.MouseEvent) => {
@@ -76,6 +78,11 @@ export const GameContextProvider = ({ children }: Props) => {
             console.log('not full word?');
             addToast('Fill out the word')
             // return
+            // update invalid state -> adds shake css animation class to guess row
+            setInvalidGuess(true)
+            setTimeout(() => {
+                setInvalidGuess(false)
+            }, 200)
             // full word:
         } else {
             // guess is valid word
@@ -97,6 +104,11 @@ export const GameContextProvider = ({ children }: Props) => {
                 // alert('Not in word list. Try another word')
                 // TODO: notification (snackbar/toast) - done
                 addToast('Not in word list. Try another word')
+                // update invalid state -> adds shake css animation class to guess row
+                setInvalidGuess(true)
+                setTimeout(() => {
+                    setInvalidGuess(false)
+                }, 200)
             }
         }
     }
@@ -139,6 +151,7 @@ export const GameContextProvider = ({ children }: Props) => {
                 handleBackspace,
                 resetGame,
                 setRandomWord,
+                invalidGuess
             }}
         >
             {children}

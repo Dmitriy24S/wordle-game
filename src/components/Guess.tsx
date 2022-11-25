@@ -17,7 +17,7 @@ interface Props {
 
 const Guess = ({ row, letterStatusGameBoard }: Props) => {
     // row === {[...Array(6)].map index (0?)
-    const { guess, guessWordList, guessAttemptNumber } = useGameContext()
+    const { guess, guessWordList, guessAttemptNumber, invalidGuess } = useGameContext()
 
     // console.log('guess', guess);
     // console.log('guessWordList', guessWordList);
@@ -29,8 +29,12 @@ const Guess = ({ row, letterStatusGameBoard }: Props) => {
     // inexactGuesses(2)['o', 's']
     // exactGuesses['o']
 
+    // add css shake animation class to current guess row if invalid/empty input = invalid guess
+    const rowStatus = guessAttemptNumber === row && invalidGuess ? 'shake' : ''
+
     return (
-        <div className='guess-row'>
+        // <div className='guess-row'>
+        <div className={`guess-row ${rowStatus}`}>
             {[...Array(5)].map((_item, index) => {
                 // console.log('guessWordList[row]', guessWordList[row]); // empty
                 // const letterStatus = guessWordList[row][index] === word[index] ? 'correct' : word.includes(guessWordList[row][index]) ? 'wrong-order' : 'wrong'

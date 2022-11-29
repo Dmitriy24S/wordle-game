@@ -65,18 +65,19 @@ function App() {
     <div className="App">
       <h1 className='title'>Wordle Clone</h1>
 
-      <div className="game">
-        {[...Array(6)].map((_item, index) => (
-          <Guess
-            key={index}
-            row={index}
-            letterStatusGameBoard={letterStatusGameBoard}
-          />
-        ))}
+      <div className="container">
+        <div className="game">
+          {[...Array(6)].map((_item, index) => (
+            <Guess
+              key={index}
+              row={index}
+              letterStatusGameBoard={letterStatusGameBoard}
+            />
+          ))}
+        </div>
+        {gameResult && !isAnimationActive && <GameOver />}
+        <Keyboard letterStatusKeyboard={letterStatusKeyboard} addToast={addToast} />
       </div>
-
-      {gameResult && !isAnimationActive && <GameOver />}
-      <Keyboard letterStatusKeyboard={letterStatusKeyboard} addToast={addToast} />
       <ToastContainer ref={toastRef} />
     </div>
   )

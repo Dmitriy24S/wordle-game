@@ -21,14 +21,30 @@
   box-sizing: border-box;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  padding-bottom: 2rem;
+  /* min-height: 100%; */
+  /* min-height: 100vh; */
+  height: 100%;
+  min-height: -webkit-fill-available;
+  min-height: 95vh;
+}
+
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px;
   margin: 0 auto;
   padding: 1rem;
   padding-top: 2rem;
   text-align: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 500px; */
+  padding: 0;
+  /* height: 100%; */
+  /* min-height: 100vh; */
+  /* min-height: 100%; */
 }
 
 a {
@@ -42,10 +58,10 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
+  /* display: flex; */
   /* place-items: center; */
   min-width: 320px;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 h1 {
@@ -87,15 +103,25 @@ button:focus-visible {
   }
 } */
 
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 /*
 ################
       Game
 ################
 */
 .game {
-  display: grid;
+  /* display: grid; */
+  /* grid-template-rows: repeat(6, 1fr); */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
   gap: 0.5rem;
-  grid-template-rows: repeat(6, 1fr);
   width: 100%;
   max-width: 370px;
   margin: 0 auto;
@@ -105,12 +131,23 @@ button:focus-visible {
   background: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: clamp(2.2rem, 11.6vmin, 3.2rem);
+  text-align: center;
+  font-size: 1.1rem;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+  margin-bottom: 15px;
 }
-
+@media (min-width: 500px) {
+  .title {
+    font-size: clamp(2.1rem, 4vw, 2.2rem);
+  }
+}
 .guess-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  /* display: grid; */
+  /* grid-template-columns: repeat(5, 1fr); */
+  display: flex;
+  justify-content: center;
   gap: 0.5rem;
 }
 
@@ -120,30 +157,44 @@ button:focus-visible {
 #########################
 */
 .guess-square {
+  width: 3rem;
+  height: 3rem;
   font-size: 1.5rem;
   font-weight: 700;
   text-transform: uppercase;
   aspect-ratio: 1/1;
   border: 2px solid #3a3a3c;
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
   pointer-events: none;
 }
+@media (min-height: 650px) {
+  .guess-square {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
 
-.correct {
+.correct,
+.keyboard-key.correct {
   background-color: #538d4e;
   border: 2px solid transparent;
 }
-.wrong-order {
+.wrong-order,
+.keyboard-key.wrong-order {
   background-color: #b59f3b;
   border: 2px solid transparent;
 }
-.wrong {
-  background-color: #3a3a3c;
+.wrong,
+.keyboard-key.wrong {
+  background-color: #1f1f1f;
   /* background-color: #1a1a1a; */
   border: 2px solid transparent;
+}
+.keyboard-key {
+  background-color: #3a3a3c;
 }
 
 /* Flip letter tile */
@@ -197,44 +248,67 @@ button:focus-visible {
 ################
 */
 .keyboard {
-  display: grid;
-  justify-items: center;
-  gap: 6px;
-  margin-top: 2rem;
+  /* display: grid; */
+  /* justify-items: center; */
+  /* gap: 6px; */
+  margin-top: 1rem;
+  margin-bottom: 4rem;
 }
 .keyboard-row {
   display: flex;
-  gap: 6px;
-  width: 100%;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 6px;
 }
 .keyboard-key {
-  height: 58px;
-  flex: 1;
+  font-size: 0.75rem;
   padding: 0;
   border-radius: 4px;
   border: 2px solid transparent;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* flex: 1; */
+  width: 2.5rem;
+  height: 2.5rem;
+}
+@media (min-height: 650px) {
+  .keyboard-key {
+    height: 3.5rem;
+  }
 }
 .enter-key {
-  flex: 1.5;
+  /* flex: 1.5; */
+  width: 4rem;
 }
 .backspace-key {
-  flex: 1.5;
+  /* flex: 1.5; */
+  width: 4rem;
 }
 .keyboard-space {
-  flex: 0.5;
+  /* flex: 0.5; */
 }
 
 /* Game Over / Play again */
 .play-again-container {
-  margin-top: 1.5rem;
-  font-size: 1.3rem;
+  margin-top: 1rem;
+  /* font-size: 1.3rem; */
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.play-again-title h4 {
+  margin: 0;
+  margin-bottom: 15px;
 }
 .win-text {
   color: rgb(28, 212, 28);
   /* font-size: 1.3rem; */
 }
 .lost-text {
-  /* color: red; */
   color: #d10707;
   /* font-size: 1.3rem; */
 }

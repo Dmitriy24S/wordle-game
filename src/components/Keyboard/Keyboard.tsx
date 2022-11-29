@@ -19,8 +19,8 @@ const Keyboard = ({ letterStatusKeyboard, addToast }: Props) => {
     return (
         <div className='keyboard'>
             {QWERTY_KEYS.map((row, index) => {
-                // 1st row of keys
-                if (index === 0) {
+                // 1st and 2nd row of keys
+                if (index !== 2) {
                     return (
                         <div className='keyboard-row' key={row}>
                             {/* {row.split('').map((letter) => {
@@ -53,15 +53,16 @@ const Keyboard = ({ letterStatusKeyboard, addToast }: Props) => {
                     )
                 }
                 // 2nd row with left right spacing
-                if (index === 1) {
-                    return (
-                        <div className='keyboard-row' key={row}>
-                            <div className="keyboard-space"></div>
-                            <Row row={row} letterStatusKeyboard={letterStatusKeyboard} addToast={addToast} />
-                            <div className="keyboard-space"></div>
-                        </div>
-                    )
-                }
+                // if (index === 1) {
+                //     return (
+                //         <div className='keyboard-row' key={row}>
+                //             <div className="keyboard-space"></div>
+                //             <Row row={row} letterStatusKeyboard={letterStatusKeyboard} addToast={addToast} />
+                //             <div className="keyboard-space"></div>
+                //         </div>
+                //     )
+                // }
+                // ! replaced grid w/ space divs to -> flex justify center keyboard
                 // Last(3rd) row with Enter and Backspace buttons
                 if (index === 2) {
                     return (

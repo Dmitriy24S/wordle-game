@@ -66,8 +66,16 @@ const Guess = ({ row, letterStatusGameBoard }: Props) => {
                     }
                 }, [guessWordList])
 
+                /* jump letters when start typing guess */
+                // const activeInput = guessAttemptNumber === row && guess[index] ? 'active' : '';
+                const activeInput = guessAttemptNumber === row && guess[index] || guessWordList[row] ? 'active' : ''; // (keep active tile border while animating flip)
+
+                // console.log('row', row);
+                // console.log('index', index);
+                // console.log('guessWordList[index]', guessWordList[index]);
+
                 return (
-                    <div className={`guess-square ${letterStatus}`} key={index}>
+                    <div className={`guess-square ${letterStatus} ${activeInput}`} key={index}>
                         {/* show active typing guess text / show previous submitted text: */}
                         {guessAttemptNumber === row ? guess[index] : guessWordList[row][index]}
                     </div>

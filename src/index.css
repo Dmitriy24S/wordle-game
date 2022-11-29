@@ -177,6 +177,23 @@ button:focus-visible {
   }
 }
 
+/* jump letters when start typing guess */
+.active {
+  /* border: 2px solid rgb(114, 114, 114); */
+  border: 2px solid #565758;
+  animation: 0.1s forwards pop;
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
 .correct,
 .keyboard-key.correct {
   background-color: #538d4e;
@@ -278,6 +295,21 @@ button:focus-visible {
     height: 3.5rem;
   }
 }
+/* .keyboard-key:hover { */
+/* background-color: rgb(94, 94, 94); */
+/* transition: background-color 250ms ease-in;
+  transition: background-color 250ms ease-out;
+  transition: background-color 250ms ease-in-out; */
+/* } */
+/* .keyboard-key.wrong:hover { */
+/* background-color: #3a3a3c; */
+/* } */
+/* .keyboard-key.wrong-order:hover { */
+/* background-color: #b59f3b; */
+/* } */
+/* .keyboard-key.correct:hover { */
+/* background-color: #538d4e; */
+/* } */
 .enter-key {
   /* flex: 1.5; */
   width: 4rem;
